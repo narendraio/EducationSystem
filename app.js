@@ -6,16 +6,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+
 
 const rtsIndex = require('./routes/index.router');
 
 var app = express();
-
-app.set('port', (process.env.PORT || 5000));
-
-
-
 
 // middleware
 app.use(bodyParser.json());
@@ -36,7 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-// app.listen(port, () => console.log(`Server started at port : ${port}`));
-app.listen(app.get('port'), function() {
-    console.log('Node app is running on port', app.get('port'));
-  });
+// app.listen(process.env.PORT, () => console.log(`Server started at port : ${process.env.PORT}`));
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
