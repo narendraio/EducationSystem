@@ -12,6 +12,11 @@ const rtsIndex = require('./routes/index.router');
 
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
+
+
+
 // middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -31,4 +36,7 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(port, () => console.log(`Server started at port : ${port}`));
+// app.listen(port, () => console.log(`Server started at port : ${port}`));
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
