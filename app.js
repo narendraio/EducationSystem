@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+const port = process.env.PORT || 3000;
 
 const rtsIndex = require('./routes/index.router');
 
@@ -30,4 +31,4 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(process.env.PORT, () => console.log(`Server started at port : ${process.env.PORT}`));
+app.listen(port, () => console.log(`Server started at port : ${port}`));
