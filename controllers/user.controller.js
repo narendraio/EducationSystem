@@ -11,6 +11,8 @@ module.exports.register = (req, res, next) => {
     user.password = req.body.password;
     user.mobile = req.body.mobile;
     user.userId = req.body.userId;
+    user.userLevel = req.body.userLevel;
+    user.group = req.body.group;
     user.save((err, doc) => {
         if (!err)
             res.send(doc);
@@ -30,7 +32,7 @@ module.exports.authenticate = (req, res, next) => {
         // error from passport middleware
         if (err) return res.status(400).json(err);
         // registered user
-        else if (user) return res.status(200).json({ "token": user.generateJwt() });
+        else if (user) return res.status(200).json({ "token": user.generateJwt(),"user" : user });
         // unknown user or wrong password
         else return res.status(404).json(info);
     })(req, res);
@@ -43,6 +45,17 @@ module.exports.userProfile = (req, res, next) =>{
                 return res.status(404).json({ status: false, message: 'User record not found.' });
             else
                 return res.status(200).json({ status: true, user : _.pick(user,['fullName','email']) });
+        }
+    );
+}
+
+module.exports.getUserList = (req, res, next) =>{
+    User.find({},
+        (err, user) => {
+            if (!user)
+                return res.status(404).json({ status: false, message: 'User record not found.' });
+            else
+                return res.status(200).json({ status: true, user :user });
         }
     );
 }

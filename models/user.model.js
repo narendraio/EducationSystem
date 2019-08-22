@@ -12,6 +12,12 @@ var userSchema = new mongoose.Schema({
         required: 'Email can\'t be empty',
         unique: true
     },
+    userLevel: {
+        type: String
+    },
+    group: {
+        type: String
+    },
     userId: {
         type: String,
         required: 'UserId can\'t be empty',
