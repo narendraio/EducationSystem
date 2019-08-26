@@ -8,7 +8,7 @@ const ctrlQuestions = require('../controllers/questions.controller');
 const jwtHelper = require('../config/jwtHelper');
 
 router.post('/register', ctrlUser.register);
-router.post('/authenticate', ctrlUser.authenticate);
+router.get('/authenticate', ctrlUser.authenticate);
 router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/getUserList', ctrlUser.getUserList);
 
