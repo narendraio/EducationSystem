@@ -15,7 +15,7 @@ module.exports.register = (req, res, next) => {
     user.group = req.body.group;
     user.save((err, doc) => {
         if (!err)
-            res.send(doc);
+            res.send({"status" : 1,"message":"Reistation successfully","data":doc});
         else {
             if (err.code == 11000)
                 res.status(422).send(['Duplicate email adrress found.']);
