@@ -25,7 +25,7 @@ module.exports.addQuestions = (req, res, next) => {
     questions.questionsubjective = req.body.questionsubjective;
     questions.subject = req.body.subject;
     questions.truefalseans = req.body.truefalseans;
-    questions.status = 'Pending';
+    questions.status = req.body.status;
     questions.save((err, doc) => {
         if (!err)
             res.send(doc);

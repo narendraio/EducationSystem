@@ -8,3 +8,4 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 require('./user.model');
 require('./subject.model');
 require('./question.model');
+require('./exam.model');
