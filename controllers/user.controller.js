@@ -67,5 +67,5 @@ module.exports.imageSlider = (req, res, next) => {
         'https://www.chans.in/wp-content/uploads/2019/07/p3.jpg',
         'https://www.chans.in/wp-content/uploads/2019/07/cHANS-SCHOLARSHIP.jpg',
     ]
-    return res.status(200).json({ status: true, data :imageArray });
+    return res.status(200).json({ "status": true, "data" :imageArray });
 }
