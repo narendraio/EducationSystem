@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var autopopulate = require('mongoose-autopopulate');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-var questionsSchema = new mongoose.Schema({
+
+var QuestionSchemaOptions = {
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true }
+};
+
+var questionsSchema = new Schema({
     correctAnswer: {
         type: String,
     },
@@ -62,7 +70,12 @@ var questionsSchema = new mongoose.Schema({
     },
     status: {
         type: String,
+    },
+    examid: {
+        type: Schema.Types.ObjectId, ref: 'Exam', autopopulate: true
     }
-});
+}, QuestionSchemaOptions);
+
+questionsSchema.plugin(autopopulate);
 
 mongoose.model('Questions', questionsSchema);

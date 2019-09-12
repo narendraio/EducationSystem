@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
+var async = require('async');
+
 
 const Exam = mongoose.model('Exam');
+const Questions = mongoose.model('Questions');
 
 module.exports.addExam = (req, res, next) => {
     console.log("calling from here");
@@ -57,4 +60,54 @@ module.exports.getUpComingExams = (req, res, next) =>{
                 return res.status(200).json({ status: true, exam :exam });
         }
     );
+}
+
+module.exports.getQuestionListFronExam = (req, res, next) =>{
+    var url = require('url');
+    var url_parts = url.parse(req.url, true);
+    var query = url_parts.query.examid;
+    console.log(query);
+    let ExamResponse = {
+        total_time : '',
+        exam_name : '',
+        questions : [],
+    };
+    async.waterfall([
+        function(callback){
+            Exam.find({"_id" : query},
+                (err, exam) => {
+                    if(err){
+                        callback(null,err);
+                    } else {
+                        ExamResponse.status =  true;
+                        ExamResponse.total_time = exam[0].examDuration;
+                        ExamResponse.exam_name = exam[0].nameOfExam;
+                        callback(null,ExamResponse);
+                    }
+                }
+            );
+        },
+        function(callback){
+            Questions.find({"examid" : query},
+                (err, questionsList) => {
+                    if (err){
+                        callback(null,err);
+                    }
+                    else{
+                        questionsList.forEach(data => {
+                            ExamResponse.questions.push(data);
+                        })
+                        return res.status(200).json({ status: true, data :ExamResponse });
+                    }
+                }
+            );
+        }
+    ],function(error,result){
+        console.log(result);
+        if(error){
+           res.send(send_response(null,true,error)); 
+       } else {
+        res.send(send_response(result,false,"Success"));
+       }
+    })
 }

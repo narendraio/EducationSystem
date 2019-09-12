@@ -23,6 +23,7 @@ router.get('/getQuestionsList',ctrlQuestions.getQuestionsList);
 router.post('/addExam',ctrlExam.addExam);
 router.get('/getExamList',ctrlExam.getExamList);
 router.get('/getUpComingExams',ctrlExam.getUpComingExams);
+router.get('/getQuestionListFronExam',ctrlExam.getQuestionListFronExam);
 
 
 

@@ -5,6 +5,7 @@ const Questions = mongoose.model('Questions');
 
 module.exports.addQuestions = (req, res, next) => {
     console.log("calling from here");
+    console.log
     var questions = new Questions();
     questions.correctAnswer = req.body.correctAnswer;
     questions.difficultylevel = req.body.difficultylevel;
@@ -26,6 +27,8 @@ module.exports.addQuestions = (req, res, next) => {
     questions.subject = req.body.subject;
     questions.truefalseans = req.body.truefalseans;
     questions.status = req.body.status;
+    questions.examid = req.body.examid;
+    console.log(questions);
     questions.save((err, doc) => {
         if (!err)
             res.send(doc);
